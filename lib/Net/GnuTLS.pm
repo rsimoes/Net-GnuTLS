@@ -1,12 +1,16 @@
 package Net::GnuTLS;
 
+use v5.10;
 use strict;
 use warnings FATAL => "all";
-use utf8;
-use parent qw(DynaLoader);
+use parent "DynaLoader";
 
 # VERSION
-# ABSTRACT: Perl bindings to GnuTLS
+# ABSTRACT: Perl bindings to GnuTLS, a secure communications library
+
+__PACKAGE__->bootstrap;
+
+END { global_deinit() }
 
 1;
 
@@ -18,7 +22,7 @@ __END__
 
 =head1 NAME
 
-Net::GnuTLS - Perl bindings to GnuTLS
+Net::GnuTLS - Perl bindings to GnuTLS, a secure communications library
 
 =head1 SYNOPSIS
 
@@ -37,7 +41,7 @@ Net::GnuTLS - Perl bindings to GnuTLS
     Net::GnuTLS::certificate_set_x509_trust_file("ca.pem", GNUTLS_X509_FMT_PEM);
     my $session = GnuTLS::init(GNUTLS_CLIENT);
     Net::GnuTLS::priority_set_direct($session, "PERFORMANCE");
-    Net::GnuTLS::credentials_set($session, GNUTLS_CRD_CERTIFICATE, $xcred);
+    Net::GnuTLS::credentials_set($session, GNUTLS_CRD_CERTIFICATE, $creds);
     Net::GnuTLS::transport_set($session, $SKT);
     Net::GnuTLS::handshake($session);
     Net::GnuTLS::record_send($session, "GET / HTTP/1.0\r\n\r\n");
@@ -64,12 +68,12 @@ things were not right.
 
 If no alert has been received the returned value is C<undef>.
 
-=item C<alert_get_name($alert_num)
+=item C<alert_get_name($alert_num)>
 
 Returns a string that describes the given alert number, or C<undef>. See
 C<alert_get>.
 
-=item C<alert_send_appropriate($session, $error_code)
+=item C<alert_send_appropriate($session, $error_code)>
 
 Sends an alert to the peer depending on the error code returned by a gnutls
 function. Returns C<GNUTLS_E_SUCCESS>, C<GNUTLS_E_AGAIN>, or

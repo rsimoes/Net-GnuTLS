@@ -1,4 +1,4 @@
 severity = 3
 verbose  = 9
-exclude  = ValuesAndExpressions::ProhibitVersionStrings ValuesAndExpressions::ProhibitConstantPragma TestingAndDebugging::ProhibitNoStrict
+exclude  = ValuesAndExpressions::ProhibitVersionStrings ValuesAndExpressions::ProhibitConstantPragma
 include  = Variables::ProhibitPackageVars

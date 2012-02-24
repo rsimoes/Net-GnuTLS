@@ -1,0 +1,3 @@
+gnutls_connection_end_t               T_IV
+Net::GnuTLS::Session                  T_PTROBJ
+Net::GnuTLS::Credentials::Certificate T_PTROBJ
